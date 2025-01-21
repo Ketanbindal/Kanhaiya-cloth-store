@@ -1,0 +1,106 @@
+.menu-container {
+    position: relative;
+    font-family: Arial, sans-serif;
+}
+
+.menu-dropdown {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 300px;
+    height: 100vh;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-50px);
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+    z-index: 999;
+}
+
+.menu-dropdown.open {
+    left: 0;
+    opacity: 1;
+    pointer-events: all;
+    transform: translateX(0);
+}
+
+.menu-dropdown ul {
+    padding: 20px;
+    list-style: none;
+    margin: 0;
+}
+
+.menu-dropdown li {
+    padding: 15px 0;
+    border-bottom: 1px solid #f1f1f1;
+    transform: translateX(-20px);
+    opacity: 0;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.menu-dropdown li:nth-child(1) {
+    transition-delay: 0.1s;
+}
+.menu-dropdown li:nth-child(2) {
+    transition-delay: 0.2s;
+}
+.menu-dropdown li:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+.menu-dropdown.open li {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.menu-dropdown a {
+    color: #444;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    display: block;
+    padding: 10px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.menu-dropdown li:hover a {
+    color: #007bff;
+    transform: scale(1.05);
+}
+
+.menu-dropdown li:hover {
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.submenu {
+    display: none;
+    padding-left: 20px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+.menu-dropdown li:hover .submenu {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.submenu li {
+    padding: 10px 0;
+    border-bottom: 1px solid #f3f3f3;
+}
+
+.submenu a {
+    font-size: 14px;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.submenu li:hover a {
+    color: #007bff;
+    font-weight: bold;
+}

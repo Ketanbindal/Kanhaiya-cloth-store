@@ -1,5 +1,9 @@
+@font-face {
+  font-family: 'TenorSans'; /* Replace with the actual font family name */
+  src: url('./fonts/TenorSans-Regular.ttf') format('truetype'); 
+}
 body {
-    font-family: Arial, sans-serif;
+    font-family: TenorSans;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
