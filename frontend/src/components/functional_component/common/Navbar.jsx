@@ -1,6 +1,7 @@
 import React from 'react';
 import './Navbar.css';
-import Menu from './Menu'; // Import the Menu component
+import Menu from './Menu';
+import Contact from './Contact'; // Import the Menu component
 
 const Navbar = () => {
   return (
@@ -12,7 +13,7 @@ const Navbar = () => {
         <li className="navbar-item"><a href="/">Home</a></li>
         <li className="navbar-item"><Menu /></li> 
         <li className="navbar-item"><a href="/about">About</a></li>
-        <li className="navbar-item"><a href="/contact">Contact</a></li>
+        <li className="navbar-item"><Contact></Contact></li>
       </ul>
       <div className="actions">
         <button className="search-btn">
