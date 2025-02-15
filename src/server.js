@@ -23,6 +23,8 @@ app.use(express.json()); // Parse JSON requests
 app.use(cors()); // Enable CORS
 
 // Database Connection
+
+
 mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
