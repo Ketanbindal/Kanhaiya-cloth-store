@@ -1,0 +1,45 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+debug.log
+error.log
+nohup.out
+
+# Database
+*.sqlite
+*.db
+dump.rdb
+*.lock
+mongodb/
+
+# Compiled files
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# Editor & OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker & Deployment
+docker-compose.override.yml
+docker-compose.yml
+.Dockerfile
+
+# Misc
+temp/
+tmp/
