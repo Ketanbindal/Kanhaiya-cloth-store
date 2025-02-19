@@ -26,3 +26,31 @@ exports.Signup = async (req, res)=>
         res.status(500).json({error:error.message})
     }
 };
+exports.Login = async (req, res)=>
+{
+    let error = validationResult(req)
+    if (!error.isEmpty)
+        {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        try{
+            
+            const { username, Password} = req.body;
+            const user = await User.findOne({username: username});   
+            const canacess = bcrypt.compare(Password, user.Password);
+            if(canacess){
+
+            }
+            else{
+                return res.status(400).json({
+                    message : "Wrong password or Username"
+
+                })            
+            }
+
+        }
+        catch(e)
+        {
+            res.status(500).json({error:error.message})
+        }
+};
