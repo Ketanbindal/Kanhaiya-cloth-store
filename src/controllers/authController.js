@@ -1,15 +1,14 @@
-import User from "../models/User";
-import { ExpressValidator } from "express-validator";
+import User from '../models/User.js';
+import { body, validationResult } from "express-validator";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken'
-import { validationResult } from "express-validator";
 
 
 
 //Export and the functionality of the Signup
 
 
-exports.Signup = async (req, res)=>
+export async function Signup(req, res)
 {
     let error = validationResult(req)
     if (!error.isEmpty)
@@ -26,7 +25,7 @@ exports.Signup = async (req, res)=>
         res.status(500).json({error:error.message})
     }
 };
-exports.Login = async (req, res)=>
+export async function Login  (req, res)
 {
     let error = validationResult(req)
     if (!error.isEmpty)
@@ -46,8 +45,8 @@ exports.Login = async (req, res)=>
             const token = jwt.sign({username : user.username, role : user.role, })
             res.cookie("auth_token", token, {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === "production", // Secure cookies in production
-                maxAge: 3600000, // 1 hour
+                secure: process.env.NODE_ENV,
+                maxAge: 3600000, 
             });
             res.json({ message: "Login successful", token })
         }
