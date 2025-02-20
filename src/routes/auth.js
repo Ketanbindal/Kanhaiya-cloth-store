@@ -8,9 +8,10 @@ import User from "../models/User.js";
 async function alreadyexists(value, item)
 {
     const user = await User.findOne({[item] : value });
+    // console.log(user)
     if (user)
     {
-        return res.status(400).json({ message: "Username already exists" });
+        return res.status(400).json({message:"username already exists"})
     }
     return true  
 }
@@ -36,10 +37,10 @@ const SignupValidation = [
         {   
             return alreadyexists(value, 'username')
         }).withMessage("This username already exists"),
-    body("email").isEmail().custom((value, {req})=>
+    body("email").isEmail().withMessage("Invalid email format").custom((value, {req})=>
     {   
         return alreadyexists(value, 'email')
-    }).withMessage("Invalid email format"),
+    }),
     body("Password").isLength({ min: 8 }).withMessage("Password must be at least 8 characters long").custom((value, {req})=>
     {
         return isvalidpassword(value)
@@ -63,7 +64,7 @@ const validateLogin = [
                 throw new Error("This username doesnot exists")
             }
         }),
-    body("password").notEmpty().withMessage("Please Enter your password")
+    body("Password").notEmpty().withMessage("Please Enter your password")
 ]
 
 
@@ -79,6 +80,6 @@ const checkAuthCookie = (req, res, next) => {
         return next(); // Invalid token, proceed to normal login
     }
 };
-router.post("/register", SignupValidation,handleValidationErrors, Signup);
+router.post("/register", SignupValidation,handleValidationErrors ,Signup);
 router.post("/login", checkAuthCookie, validateLogin,handleValidationErrors, Login)
 export default router;

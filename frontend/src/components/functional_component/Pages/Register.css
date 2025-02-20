@@ -1,50 +1,67 @@
-*
-{
-    margin : 0;
-    padding : 0;    
-    box-sizing: border-box;
-}
+/* Register.css */
 
-.LoginArea
-{
-    width: 50vw;
-    margin : 50%;
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f4;
     display: flex;
-    flex-direction: column;
-    margin : auto;
-    height : 50vh;
-    border-radius: 8px;
     justify-content: center;
-    background-color: rgb(143, 158, 171);
     align-items: center;
-
-
+    height: 100vh;
+    margin: 0;
 }
-.LoginArea form
-{
-    width: auto;
-    margin : auto;
+
+.LoginArea {
+    background: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center;
+}
+
+form {
     display: flex;
     flex-direction: column;
-    margin : auto;
-    height : auto;
-    justify-content: center;
-    padding : 15px;
-    align-items: baseline;
-    gap : 10px;
+}
 
+span {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 15px;
 }
-.LoginArea form span
-{
-  display: flex;
-  flex-direction: column;
+
+label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
 }
-button
-{
-    width : 200px;
-    height : 40px;
-    color : white;
-    background-color: green;
-    border : none;
-    border-radius: 2px;
+
+input {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    outline: none;
+    transition: border 0.3s;
+}
+
+input:focus {
+    border-color: #ff6f61;
+}
+
+button {
+    background: #ff6f61;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+    font-weight: 600;
+}
+
+button:hover {
+    background: #e65a50;
 }
