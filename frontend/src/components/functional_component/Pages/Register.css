@@ -1,0 +1,50 @@
+*
+{
+    margin : 0;
+    padding : 0;    
+    box-sizing: border-box;
+}
+
+.LoginArea
+{
+    width: 50vw;
+    margin : 50%;
+    display: flex;
+    flex-direction: column;
+    margin : auto;
+    height : 50vh;
+    border-radius: 8px;
+    justify-content: center;
+    background-color: rgb(143, 158, 171);
+    align-items: center;
+
+
+}
+.LoginArea form
+{
+    width: auto;
+    margin : auto;
+    display: flex;
+    flex-direction: column;
+    margin : auto;
+    height : auto;
+    justify-content: center;
+    padding : 15px;
+    align-items: baseline;
+    gap : 10px;
+
+}
+.LoginArea form span
+{
+  display: flex;
+  flex-direction: column;
+}
+button
+{
+    width : 200px;
+    height : 40px;
+    color : white;
+    background-color: green;
+    border : none;
+    border-radius: 2px;
+}
