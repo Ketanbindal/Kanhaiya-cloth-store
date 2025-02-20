@@ -38,16 +38,18 @@ exports.Login = async (req, res)=>
             const { username, Password} = req.body;
             const user = await User.findOne({username: username});   
             const canacess = bcrypt.compare(Password, user.Password);
-            if(canacess){
-
-            }
-            else{
+            if(!canacess){       
                 return res.status(400).json({
                     message : "Wrong password or Username"
 
-                })            
-            }
-
+                })  }
+            const token = jwt.sign({username : user.username, role : user.role, })
+            res.cookie("auth_token", token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === "production", // Secure cookies in production
+                maxAge: 3600000, // 1 hour
+            });
+            res.json({ message: "Login successful", token })
         }
         catch(e)
         {
