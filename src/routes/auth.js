@@ -7,7 +7,7 @@ import User from "../models/User.js";
 
 async function alreadyexists(value, item)
 {
-    const user = await User.findOne({[item] : username});
+    const user = await User.findOne({[item] : value });
     if (user)
     {
         return res.status(400).json({ message: "Username already exists" });
@@ -17,19 +17,18 @@ async function alreadyexists(value, item)
 
 function isvalidpassword(value)
 {
-    const havelowercase = /[A-Z]/.test(value);
-    const haveUppercase = /[a-z]/.test(value);
-    const notHaveSpace = /[^\s]/.test(value);
-    const haveSymbol = /[^a-zA-Z0-9]/.test(value);
-    const haveNumber = /[^0-9]/.test(value);
-    if(havelowercase &&haveUppercase && notHaveSpace && haveSymbol && haveNumber)
+    const hasLowercase = /[a-z]/.test(value); 
+    const hasUppercase = /[A-Z]/.test(value);  
+    const noSpaces = /^\S+$/.test(value);    
+    const hasSymbol = /[^a-zA-Z0-9]/.test(value); 
+    const hasNumber = /\d/.test(value);  
+    if(hasLowercase && hasUppercase && noSpaces && hasSymbol && hasNumber)
     {
         return true;
     }
-    else
-    {
-        throw new Error("Password must include uppercase, lowercase, number, and special character");
-    }
+    
+    throw new Error("Password must include uppercase, lowercase, number, and special character");
+
     
 }
 const SignupValidation = [
@@ -41,10 +40,10 @@ const SignupValidation = [
     {   
         return alreadyexists(value, 'email')
     }).withMessage("Invalid email format"),
-    body("password").isLength({ min: 8 }).custom((value, {req})=>
+    body("Password").isLength({ min: 8 }).withMessage("Password must be at least 8 characters long").custom((value, {req})=>
     {
         return isvalidpassword(value)
-    }).withMessage("Password must be at least 6 characters long")
+    })
 ]
 
 
