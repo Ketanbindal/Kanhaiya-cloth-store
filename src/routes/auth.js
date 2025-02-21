@@ -11,7 +11,7 @@ async function alreadyexists(value, item)
     // console.log(user)
     if (user)
     {
-        return res.status(400).json({message:"username already exists"})
+        throw new error("user already exists");
     }
     return true  
 }
@@ -23,12 +23,15 @@ function isvalidpassword(value)
     const noSpaces = /^\S+$/.test(value);    
     const hasSymbol = /[^a-zA-Z0-9]/.test(value); 
     const hasNumber = /\d/.test(value);  
-    if(hasLowercase && hasUppercase && noSpaces && hasSymbol && hasNumber)
+    const isValid = hasLowercase && hasUppercase && noSpaces && hasSymbol && hasNumber;
+
+    if(!isValid)
     {
-        return true;
+        throw new Error("Password must include uppercase, lowercase, number, and special character");
+        
     }
     
-    throw new Error("Password must include uppercase, lowercase, number, and special character");
+    return true;
 
     
 }
@@ -57,13 +60,7 @@ const handleValidationErrors = (req, res, next) => {
 };
 const validateLogin = [
 
-    body("username").notEmpty().custom((value, {req})=>
-        {   
-            createduser = alreadyexists(value, 'username')
-            if (!createduser){
-                throw new Error("This username doesnot exists")
-            }
-        }),
+    body("username").notEmpty().withMessage("Enter your username"),
     body("Password").notEmpty().withMessage("Please Enter your password")
 ]
 

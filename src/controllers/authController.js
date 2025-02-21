@@ -20,6 +20,12 @@ export async function Signup(req, res)
         const hashpass = await bcrypt.hash(Password, 10);
         const user = new User({username, email, Password : hashpass});
         await user.save();
+        const token = jwt.sign({username : user.username, role : user.role, })
+            res.cookie("auth_token", token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV,
+                maxAge: 3600000, 
+            });
         res.status(201).json({message : 'User Registered Sucessfully'});
     }catch(e){
         res.status(500).json({error:error.message})
@@ -39,7 +45,7 @@ export async function Login  (req, res)
             const canacess = bcrypt.compare(Password, user.Password);
             if(!canacess){       
                 return res.status(400).json({
-                    message : "Wrong password or Username"
+                    message : "Username does not exists"
 
                 })  }
             const token = jwt.sign({username : user.username, role : user.role, })

@@ -1,12 +1,11 @@
 import React, { useState, useRef } from "react";
 import "./Register.css";
-// import Navbar from "../common/Navbar";
 
 export default function Register() {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
-    Password: "",
+    Password: "", // Keeping "Password" as requested
   });
 
   const [loading, setLoading] = useState(false);
@@ -17,7 +16,7 @@ export default function Register() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
-  const API_URL = "http://127.0.0.1:5000/api/auth/register"; // Correct API URL
+  const API_URL = "http://localhost:5000/api/auth/register"; // Ensure backend runs on this port
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -29,7 +28,7 @@ export default function Register() {
       if (nextField) {
         nextField.current.focus();
       } else {
-        handleSubmit(e); // Submit the form if it's the last field
+        handleSubmit(e);
       }
     }
   };
@@ -39,50 +38,45 @@ export default function Register() {
     setLoading(true);
     setError("");
     setSuccess("");
-
-    if (formData.username.trim() === "") {
-      setError("Username is required!");
-      setLoading(false);
-      return;
-    }
-    if (!formData.email.includes("@")) {
-      setError("Please enter a valid email!");
-      setLoading(false);
-      return;
-    }
-    if (formData.Password.length < 6) {
-      setError("Password must be at least 6 characters!");
-      setLoading(false);
-      return;
-    }
-
+  
     try {
+      const requestData = {
+        username: formData.username, // Keep "username" consistent
+        email: formData.email, // Keep "email" consistent
+        Password: formData.Password, // Change "Password" to "password"
+      };
       const response = await fetch(API_URL, {
-        method: "PUT",
+        method: "POST", 
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData), // Fixed JSON Stringify
+        body: JSON.stringify(requestData),
       });
-
+  
       const data = await response.json();
-
+  
       if (!response.ok) {
-        throw new Error(data.message || "Something went wrong!");
+        // If backend returns an array of errors, format them
+        if (data.errors && Array.isArray(data.errors)) {
+          throw new Error(data.errors.map((err) => err.msg).join("\n"));
+        } else {
+          throw new Error(data.message || "Something went wrong!");
+        }
       }
-
+  
       setSuccess("Registration successful!");
       setFormData({ username: "", email: "", Password: "" }); // Reset form
     } catch (err) {
-      setError(err.message);
+      console.log(err)
+      setError(err.message); // Display all error messages in a single string
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <>
-      {/* <Navbar /> */}
       <div className="LoginArea">
         <form onSubmit={handleSubmit}>
           {error && <p className="error">{error}</p>}
@@ -118,11 +112,11 @@ export default function Register() {
             <input
               type="password"
               id="password"
-              name="Password"
+              name="Password" // Keeping "Password" capitalized
               placeholder="Password"
-              value={formData.password}
+              value={formData.Password}
               onChange={handleChange}
-              onKeyDown={(e) => handleKeyDown(e, null)} // Submit on Enter
+              onKeyDown={(e) => handleKeyDown(e, null)}
               ref={passwordRef}
             />
           </span>
