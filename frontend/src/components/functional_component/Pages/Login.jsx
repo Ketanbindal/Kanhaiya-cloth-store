@@ -51,6 +51,7 @@ export default function Login() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(requestData),
+        credentials: "include",
       });
 
       const data = await response.json();

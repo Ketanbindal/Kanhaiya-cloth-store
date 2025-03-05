@@ -12,18 +12,20 @@ dotenv.config(); // Load environment variables from .env
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-try{app.use(cors());}
+
+try{app.use(
+  cors({
+    origin: "http://localhost:3000", // Allow frontend
+    credentials: true, // Allow cookies to be sent
+  })
+);}
 catch(e)
 {
   console.log(e)
 }
-
-
 app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
-
-
 
 const PORT = process.env.PORT || 5000;
 

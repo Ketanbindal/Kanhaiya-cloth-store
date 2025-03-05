@@ -20,7 +20,7 @@ export async function Signup(req, res)
         const hashpass = await bcrypt.hash(Password, 10);
         const user = new User({username, email, Password : hashpass});
         await user.save();
-        const token = jwt.sign({username : user.username, role : user.role, })
+        const token = jwt.sign({username : user.username, role : user.role,},  process.env.JWT_SECRET,{ expiresIn: '1h' } )
             res.cookie("auth_token", token, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV,
@@ -28,7 +28,8 @@ export async function Signup(req, res)
             });
         res.status(201).json({message : 'User Registered Sucessfully'});
     }catch(e){
-        res.status(500).json({error:error.message})
+        console.error("Registration Error:", e);
+        res.status(500).json({ error: e.message });
     }
 };
 export async function Login  (req, res)
@@ -48,16 +49,17 @@ export async function Login  (req, res)
                     message : "Username does not exists"
 
                 })  }
-            const token = jwt.sign({username : user.username, role : user.role, })
+            const token = jwt.sign({username : user.username, role : user.role, },process.env.JWT_SECRET,{ expiresIn: '1h' })
             res.cookie("auth_token", token, {
-                httpOnly: true,
-                secure: process.env.NODE_ENV,
-                maxAge: 3600000, 
+                httpOnly: true,      
+                secure: false,       
+                sameSite: "Lax",
             });
             res.json({ message: "Login successful", token })
         }
         catch(e)
         {
+            console.error("Registration Error:", e);
             res.status(500).json({error:error.message})
         }
 };

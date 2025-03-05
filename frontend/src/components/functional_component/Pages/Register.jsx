@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Register.css";
 
 export default function Register() {
@@ -15,7 +16,7 @@ export default function Register() {
   const usernameRef = useRef(null);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
-
+  const navigate = useNavigate();
   const API_URL = "http://localhost:5000/api/auth/register"; // Ensure backend runs on this port
 
   const handleChange = (e) => {
@@ -60,11 +61,14 @@ export default function Register() {
         if (data.errors && Array.isArray(data.errors)) {
           throw new Error(data.errors.map((err) => err.msg).join("\n"));
         } else {
-          throw new Error(data.message || "Something went wrong!");
+          throw new Error(data.error || data.message || "Something went wrong!");
         }
       }
   
       setSuccess("Registration successful!");
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000); 
       setFormData({ username: "", email: "", Password: "" }); // Reset form
     } catch (err) {
       console.log(err)
