@@ -73,7 +73,7 @@ export default function Login() {
       setFormData({ username: "", Password: "" });
 
       setTimeout(() => {
-        navigate("/dashboard"); 
+        navigate("/ "); 
       }, 2000);
     } catch (err) {
       console.error("Network/Client Error:", err);
