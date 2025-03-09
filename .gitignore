@@ -1,4 +1,7 @@
 node_modules/
+kanhaiya-garments/package-lock.json
+kanhaiya-garments/postcss.config.js
+kanhaiya-garments/tailwind.config.js
 .env
 .cache/
 build/

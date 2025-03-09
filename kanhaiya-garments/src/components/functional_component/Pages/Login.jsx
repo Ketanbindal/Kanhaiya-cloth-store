@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom"; 
-import "./Login.css";
+// import "./Login.css";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -84,43 +84,52 @@ export default function Login() {
   };
 
   return (
-    <div className="LoginArea">
-      <form onSubmit={handleSubmit}>
-        {error && <p className="error">{error}</p>}
-        {success && <p className="success">{success}</p>}
-        
-        <span>
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            placeholder="Username"
-            value={formData.username}
-            onChange={handleChange}
-            onKeyDown={(e) => handleKeyDown(e, passwordRef)}
-            ref={usernameRef}
-          />
-        </span>
+    <div className="flex items-center justify-center min-h-screen bg-white px-4 sm:px-6 lg:px-8">
+      <div className="bg-off-white shadow-lg rounded-lg p-8 sm:p-10 w-full max-w-md">
+        <img src="/Kanhaiya.png" alt="Logo" className="w-24 mx-auto" />
+        <h2 className="text-black text-2xl font-bold text-center uppercase font-tenor">Login</h2>
+        <form onSubmit={handleSubmit} className="mt-6">
+          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+          {success && <p className="text-green-500 text-sm text-center">{success}</p>}
+          
+          <div className="mb-4">
+            <label htmlFor="username" className="block text-label text-sm font-medium uppercase">Username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Enter your username"
+              value={formData.username}
+              onChange={handleChange}
+              ref={usernameRef}
+              className="mt-1 block w-full px-4 py-2 border rounded-lg text-body bg-input-background focus:ring-primary focus:border-primary"
+            />
+          </div>
 
-        <span>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="Password"
-            placeholder="Password"
-            value={formData.Password}
-            onChange={handleChange}
-            onKeyDown={(e) => handleKeyDown(e, null)}
-            ref={passwordRef}
-          />
-        </span>
+          <div className="mb-4">
+            <label htmlFor="password" className="block text-label text-sm font-medium uppercase">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="Password"
+              placeholder="Enter your password"
+              value={formData.Password}
+              onChange={handleChange}
+              ref={passwordRef}
+              className="mt-1 block w-full px-4 py-2 border rounded-lg text-body bg-input-background focus:ring-primary focus:border-primary"
+            />
+          </div>
 
-        <button type="submit" disabled={loading}>
-          {loading ? "Logging in..." : "Login"}
-        </button>
-      </form>
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-primary text-white font-bold py-2 px-4 rounded-lg hover:bg-secondary transition"
+          >
+            {loading ? "Logging in..." : "Login"}
+          </button>
+        </form>
+      </div>
     </div>
   );
-}
+};
+

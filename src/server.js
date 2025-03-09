@@ -15,7 +15,7 @@ app.use(express.json());
 
 try{app.use(
   cors({
-    origin: "http://localhost:3000", // Allow frontend
+    origin: "http://localhost:5173", // Allow frontend
     credentials: true, // Allow cookies to be sent
   })
 );}
