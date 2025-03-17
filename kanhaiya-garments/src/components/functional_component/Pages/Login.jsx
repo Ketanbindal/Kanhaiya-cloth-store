@@ -128,8 +128,11 @@ export default function Login() {
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
+        {/*Desktop view here */}
+        
       </div>
     </div>
+    
   );
 };
 

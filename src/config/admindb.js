@@ -2,10 +2,9 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 
 dotenv.config(); 
-export default async function connectDB(){
+export default async function connectAdminDB(){
   try {
-    // console.log(process.env.MongoURI)
-    const conn = await mongoose.connect(process.env.UserMongoURI);
+    const conn = await mongoose.connect(process.env.AdminMonogoURI);
     console.log(`MongoDB Connected: ${await conn.connection.host}`);
   }
   catch(error){

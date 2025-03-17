@@ -1,4 +1,4 @@
-import User from '../models/User.js';
+import Admin from '../models/Admin.js';
 import { body, validationResult } from "express-validator";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken'
@@ -18,15 +18,15 @@ export async function Signup(req, res)
     try{
         const { username, email, Password} = req.body;
         const hashpass = await bcrypt.hash(Password, 10);
-        const user = new User({username, email, Password : hashpass});
-        await user.save();
-        const token = jwt.sign({username : user.username, role : user.role,},  process.env.JWT_SECRET,{ expiresIn: '1h' } )
+        const Admin = new Admin({username, email, Password : hashpass});
+        await Admin.save();
+        const token = jwt.sign({username : Admin.username, role : Admin.role,},  process.env.JWT_SECRET,{ expiresIn: '1h' } )
             res.cookie("auth_token", token, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV,
-                maxAge: 3600000, 
+                maxAge: 1200000, 
             });
-        res.status(201).json({message : 'User Registered Sucessfully'});
+        res.status(201).json({message : 'Admin Registered Sucessfully'});
     }catch(e){
         console.error("Registration Error:", e);
         res.status(500).json({ error: e.message });
@@ -42,14 +42,14 @@ export async function Login  (req, res)
         try{
             
             const { username, Password} = req.body;
-            const user = await User.findOne({username: username});   
-            const canacess = bcrypt.compare(Password, user.Password);
+            const Admin = await Admin.findOne({username: username});   
+            const canacess = bcrypt.compare(Password, Admin.Password);
             if(!canacess){       
                 return res.status(400).json({
-                    message : "Username does not exists"
+                    message : "Admin does not exists"
 
                 })  }
-            const token = jwt.sign({username : user.username, role : user.role, },process.env.JWT_SECRET,{ expiresIn: '1h' })
+            const token = jwt.sign({username : Admin.username, role : Admin.role, },process.env.JWT_SECRET,{ expiresIn: '1h' })
             res.cookie("auth_token", token, {
                 httpOnly: true,      
                 secure: false,       
